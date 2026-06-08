@@ -1,3 +1,4 @@
 Folder
 .txt
 *node_modules/
+.venv/
