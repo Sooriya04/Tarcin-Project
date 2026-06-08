@@ -1,0 +1,201 @@
+syntax = "proto3";
+
+package tarcin.performance;
+
+option go_package = "backend/internal/grpc/pb";
+
+message Empty {}
+
+message InternScore {
+  string id = 1;
+  string name = 2;
+  float score = 3;
+}
+
+message PerformanceMetricsResponse {
+  repeated InternScore top_performers = 1;
+  repeated InternScore lowest_performers = 2;
+  float average_evaluation_score = 3;
+  map<string, float> domain_wise_performance = 4;
+  map<string, float> college_wise_performance = 5;
+}
+
+message InternHealthResponse {
+  int32 active_interns = 1;
+  int32 completed_internships = 2;
+  int32 inactive_interns = 3;
+  map<string, int32> top_colleges = 4;
+  map<string, int32> fastest_growing_domains = 5;
+}
+
+message InternTaskStat {
+  string intern_id = 1;
+  string intern_name = 2;
+  float completion_rate = 3;
+  int32 count = 4;
+}
+
+message TaskTitleStat {
+  string title = 1;
+  int32 count = 2;
+}
+
+message DomainApprovalStat {
+  string domain = 1;
+  float approval_rate = 2;
+}
+
+message MentorSpeedStat {
+  string mentor_name = 1;
+  float avg_completion_hours = 2;
+}
+
+message PendingTask {
+  string task_id = 1;
+  string title = 2;
+  int32 days_pending = 3;
+}
+
+message TaskTimeCorrelation {
+  string status = 1;
+  float avg_minutes = 2;
+}
+
+message TaskAnalyticsResponse {
+  repeated InternTaskStat highest_completion_rate = 1;
+  repeated InternTaskStat most_late_tasks = 2;
+  repeated TaskTitleStat frequently_rejected_tasks = 3;
+  float incomplete_tasks_percentage = 4;
+  repeated DomainApprovalStat domain_approval_rates = 5;
+  repeated MentorSpeedStat fastest_mentor_interns = 6;
+  repeated InternTaskStat decreased_completion_rate = 7;
+  repeated string top_rejection_reasons = 8;
+  repeated InternTaskStat consistent_early_submitters = 9;
+  repeated PendingTask long_pending_tasks = 10;
+  float tasks_without_evidence_percentage = 11;
+  repeated TaskTitleStat tasks_with_most_blockers = 12;
+  repeated TaskTimeCorrelation time_vs_approval_correlation = 13;
+}
+
+message MentorStat {
+  string mentor_name = 1;
+  float stat_value = 2;
+  string extra_info = 3;
+}
+
+message DomainMentorStat {
+  string domain_name = 1;
+  string mentor_name = 2;
+  float effectiveness_score = 3;
+}
+
+message MentorAnalyticsResponse {
+  repeated MentorStat largest_intern_count = 1;
+  repeated MentorStat highest_avg_evaluation = 2;
+  repeated MentorStat lowest_attendance_rate = 3;
+  repeated MentorStat highest_task_approval = 4;
+  repeated MentorStat highest_retention_rate = 5;
+  repeated MentorStat consistently_miss_deadlines = 6;
+  repeated MentorStat balanced_workload = 7;
+  repeated MentorStat needs_intervention = 8;
+  repeated DomainMentorStat effectiveness_across_domains = 9;
+  repeated MentorStat lagging_assessments = 10;
+  repeated MentorStat negative_empty_feedback = 11;
+  repeated MentorStat disputed_evidence_flags = 12;
+}
+
+message EngagementStat {
+  string intern_id = 1;
+  string intern_name = 2;
+  float stat_value = 3;
+  string extra_info = 4;
+}
+
+message CollegeEngagementStat {
+  string college_name = 1;
+  float avg_engagement_score = 2;
+}
+
+message EngagementAnalyticsResponse {
+  repeated EngagementStat no_recent_attendance = 1;
+  repeated EngagementStat declining_participation = 2;
+  repeated EngagementStat stopped_daily_reports = 3;
+  repeated EngagementStat lost_active_streaks = 4;
+  repeated EngagementStat most_engaged_interns = 5;
+  repeated EngagementStat at_risk_interns = 6;
+  repeated EngagementStat sudden_activity_drops = 7;
+  repeated CollegeEngagementStat top_engaged_colleges = 8;
+  repeated EngagementStat stuck_or_blocked = 9;
+  repeated EngagementStat missing_or_partial_signal = 10;
+  repeated EngagementStat high_messages_low_tasks = 11;
+}
+
+message GrowthStat {
+  string item_name = 1;
+  float stat_value = 2;
+  float secondary_value = 3;
+}
+
+message GrowthAnalyticsResponse {
+  repeated GrowthStat most_xp_this_week = 1;
+  repeated GrowthStat frequent_achievements = 2;
+  repeated GrowthStat xp_vs_evaluations = 3;
+  repeated GrowthStat streak_vs_tasks = 4;
+  repeated GrowthStat fastest_xp_domains = 5;
+  repeated GrowthStat closest_to_level_up = 6;
+  float active_gamification_percentage = 7;
+  repeated GrowthStat stagnated_xp_growth = 8;
+}
+
+message CollegeStat {
+  string college_name = 1;
+  float stat_value = 2;
+  string extra_info = 3;
+}
+
+message CollegeAnalyticsResponse {
+  repeated CollegeStat highest_intern_count = 1;
+  repeated CollegeStat best_performing = 2;
+  repeated CollegeStat highest_completion_rate = 3;
+  repeated CollegeStat highest_dropout_risk = 4;
+  repeated CollegeStat attendance_trends = 5;
+  repeated CollegeStat recommended_for_more_slots = 6;
+  repeated CollegeStat declining_performance = 7;
+}
+
+message WorkflowStat {
+  string intern_name = 1;
+  float escalation_level = 2;
+  string root_cause = 3;
+}
+
+message WorkflowAnalyticsResponse {
+  repeated WorkflowStat escalated_interns = 1;
+  repeated WorkflowStat negative_weeks_trend = 2;
+  repeated WorkflowStat common_root_causes = 3;
+  repeated WorkflowStat past_due_decisions = 4;
+}
+
+message ConversionStat {
+  string intern_name = 1;
+  float stat_value = 2;
+  string extra_info = 3;
+}
+
+message ConversionAnalyticsResponse {
+  repeated ConversionStat not_started_approaching_end = 1;
+  repeated ConversionStat high_eval_ready_hire = 2;
+  repeated ConversionStat top_conversion_colleges = 3;
+}
+
+service PerformanceService {
+  rpc GetPerformanceMetrics(Empty) returns (PerformanceMetricsResponse);
+  rpc GetInternHealth(Empty) returns (InternHealthResponse);
+  rpc GetTaskAnalytics(Empty) returns (TaskAnalyticsResponse);
+  rpc GetMentorAnalytics(Empty) returns (MentorAnalyticsResponse);
+  rpc GetEngagementAnalytics(Empty) returns (EngagementAnalyticsResponse);
+  rpc GetGrowthAnalytics(Empty) returns (GrowthAnalyticsResponse);
+  rpc GetCollegeAnalytics(Empty) returns (CollegeAnalyticsResponse);
+  rpc GetWorkflowAnalytics(Empty) returns (WorkflowAnalyticsResponse);
+  rpc GetConversionAnalytics(Empty) returns (ConversionAnalyticsResponse);
+}
