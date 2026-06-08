@@ -1,0 +1,65 @@
+{
+    "providers": {
+        "ollama": {
+            "apiBase": "http://localhost:11434/v1",
+            "extraBody": {
+                "options": {
+                    "num_ctx": 8192
+                },
+                "keep_alive": 0
+            }
+        }
+    },
+    "agents": {
+        "defaults": {
+            "provider": "ollama",
+            "model": "gemma4:e2b",
+            "workspace": "~/.nanobot/workspace",
+            "contextWindowTokens": 8192,
+            "disabledSkills": [
+                "clawhub",
+                "cron",
+                "github",
+                "image-generation",
+                "long-goal",
+                "memory",
+                "my",
+                "skill-creator",
+                "summarize",
+                "tarcin-analytics",
+                "tmux",
+                "update-setup",
+                "weather"
+            ]
+        }
+    },
+    "channels": {
+        "telegram": {
+            "enabled": true,
+            "token": "8983937655:AAEa9o_i4_z9HgokDZKtBgd0ZjBWWBYzyuo",
+            "allowFrom": [
+                "*"
+            ]
+        }
+    },
+    "tools": {
+        "web": {
+            "enable": false
+        },
+        "exec": {
+            "enable": false
+        },
+        "cliApps": {
+            "enable": false
+        },
+        "my": {
+            "enable": false
+        },
+        "mcpServers": {
+            "TA": {
+                "command": "/home/sooriya/Desktop/Tarcin/backend/mcp_server",
+                "args": []
+            }
+        }
+    }
+}
