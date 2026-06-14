@@ -7,6 +7,4 @@ backend/server
 backend/mcp_server
 agents/__pycache__/
 agents/reports/
-agents/performance_pb2.py
-agents/performance_pb2_grpc.py
 agents/*.log
