@@ -5,7 +5,10 @@ import (
 	"backend/internal/repository"
 	"context"
 	"database/sql"
+	"encoding/json"
+	"fmt"
 	"log"
+	"strings"
 )
 
 type PerformanceService struct {
@@ -18,125 +21,86 @@ func NewPerformanceService(db *sql.DB, repo *repository.InternRepository) *Perfo
 	return &PerformanceService{DB: db, Repo: repo}
 }
 
-func (s *PerformanceService) GetPerformanceMetrics(ctx context.Context, req *pb.Empty) (*pb.PerformanceMetricsResponse, error) {
-	resp := &pb.PerformanceMetricsResponse{
-		DomainWisePerformance:  make(map[string]float32),
-		CollegeWisePerformance: make(map[string]float32),
+func (s *PerformanceService) ExecuteSQLQuery(ctx context.Context, req *pb.SQLQueryRequest) (*pb.SQLQueryResponse, error) {
+	query := req.GetQuery()
+	log.Printf("[ExecuteSQLQuery] Incoming query: %s", query)
+
+	// Basic check to prevent modifications
+	trimmed := strings.TrimSpace(strings.ToUpper(query))
+	if !strings.HasPrefix(trimmed, "SELECT") && !strings.HasPrefix(trimmed, "WITH") {
+		log.Printf("[ExecuteSQLQuery] Security error: Query does not start with SELECT or WITH")
+		return &pb.SQLQueryResponse{
+			Error: "Security Error: Only read-only SELECT or WITH queries are allowed.",
+		}, nil
 	}
 
-	// 1. Average Evaluation Score
-	err := s.DB.QueryRowContext(ctx, `SELECT COALESCE(AVG("totalScore"), 0) FROM "Evaluation"`).Scan(&resp.AverageEvaluationScore)
+	rows, err := s.DB.QueryContext(ctx, query)
 	if err != nil {
-		log.Printf("Query error (AverageEvaluationScore): %v", err)
+		log.Printf("[ExecuteSQLQuery] SQL error: %v for query: %s", err, query)
+		return &pb.SQLQueryResponse{
+			Error: fmt.Sprintf("SQL Error: %v", err),
+		}, nil
+	}
+	defer rows.Close()
+
+	columns, err := rows.Columns()
+	if err != nil {
+		log.Printf("[ExecuteSQLQuery] Columns error: %v", err)
+		return &pb.SQLQueryResponse{
+			Error: fmt.Sprintf("SQL Columns Error: %v", err),
+		}, nil
 	}
 
-	// 2. Top Performers
-	topRows, err := s.DB.QueryContext(ctx, `
-		SELECT e."internId", u.name, AVG(e."totalScore") as avg_score
-		FROM "Evaluation" e
-		JOIN "User" u ON e."internId" = u.id
-		GROUP BY e."internId", u.name
-		ORDER BY avg_score DESC
-		LIMIT 5
-	`)
-	if err == nil {
-		defer topRows.Close()
-		for topRows.Next() {
-			var id, name string
-			var score float32
-			if err := topRows.Scan(&id, &name, &score); err == nil {
-				resp.TopPerformers = append(resp.TopPerformers, &pb.InternScore{Id: id, Name: name, Score: score})
+	var result []map[string]interface{}
+	for rows.Next() {
+		values := make([]interface{}, len(columns))
+		valuePtrs := make([]interface{}, len(columns))
+		for i := range columns {
+			valuePtrs[i] = &values[i]
+		}
+
+		if err := rows.Scan(valuePtrs...); err != nil {
+			log.Printf("[ExecuteSQLQuery] Scan error: %v", err)
+			return &pb.SQLQueryResponse{
+				Error: fmt.Sprintf("SQL Scan Error: %v", err),
+			}, nil
+		}
+
+		rowMap := make(map[string]interface{})
+		for i, col := range columns {
+			val := values[i]
+			b, ok := val.([]byte)
+			if ok {
+				rowMap[col] = string(b)
+			} else {
+				rowMap[col] = val
 			}
 		}
-	} else {
-		log.Printf("Query error (TopPerformers): %v", err)
+		result = append(result, rowMap)
 	}
 
-	// 3. Lowest Performers
-	lowRows, err := s.DB.QueryContext(ctx, `
-		SELECT e."internId", u.name, AVG(e."totalScore") as avg_score
-		FROM "Evaluation" e
-		JOIN "User" u ON e."internId" = u.id
-		GROUP BY e."internId", u.name
-		ORDER BY avg_score ASC
-		LIMIT 5
-	`)
-	if err == nil {
-		defer lowRows.Close()
-		for lowRows.Next() {
-			var id, name string
-			var score float32
-			if err := lowRows.Scan(&id, &name, &score); err == nil {
-				resp.LowestPerformers = append(resp.LowestPerformers, &pb.InternScore{Id: id, Name: name, Score: score})
-			}
-		}
-	} else {
-		log.Printf("Query error (LowestPerformers): %v", err)
+	if err := rows.Err(); err != nil {
+		log.Printf("[ExecuteSQLQuery] Rows error: %v", err)
+		return &pb.SQLQueryResponse{
+			Error: fmt.Sprintf("SQL Rows Iteration Error: %v", err),
+		}, nil
 	}
 
-	// 4. Domain-wise Performance
-	domainRows, err := s.DB.QueryContext(ctx, `
-		SELECT ip."preferredDomain", AVG(e."totalScore")
-		FROM "Evaluation" e
-		JOIN "InternProfile" ip ON e."internId" = ip."userId"
-		WHERE ip."preferredDomain" IS NOT NULL
-		GROUP BY ip."preferredDomain"
-	`)
-	if err == nil {
-		defer domainRows.Close()
-		for domainRows.Next() {
-			var domain string
-			var score float32
-			if err := domainRows.Scan(&domain, &score); err == nil {
-				resp.DomainWisePerformance[domain] = score
-			}
-		}
-	} else {
-		log.Printf("Query error (DomainWisePerformance): %v", err)
+	if result == nil {
+		result = []map[string]interface{}{}
 	}
 
-	// 5. College-wise Performance
-	collegeRows, err := s.DB.QueryContext(ctx, `
-		SELECT c.name, AVG(e."totalScore")
-		FROM "Evaluation" e
-		JOIN "InternProfile" ip ON e."internId" = ip."userId"
-		JOIN "College" c ON ip."collegeId" = c.id
-		GROUP BY c.name
-	`)
-	if err == nil {
-		defer collegeRows.Close()
-		for collegeRows.Next() {
-			var college string
-			var score float32
-			if err := collegeRows.Scan(&college, &score); err == nil {
-				resp.CollegeWisePerformance[college] = score
-			}
-		}
-	} else {
-		log.Printf("Query error (CollegeWisePerformance): %v", err)
+	jsonData, err := json.Marshal(result)
+	if err != nil {
+		log.Printf("[ExecuteSQLQuery] JSON Marshal error: %v", err)
+		return &pb.SQLQueryResponse{
+			Error: fmt.Sprintf("JSON Marshal Error: %v", err),
+		}, nil
 	}
 
-	return resp, nil
+	log.Printf("[ExecuteSQLQuery] Success: returned %d rows", len(result))
+	return &pb.SQLQueryResponse{
+		JsonResult: string(jsonData),
+	}, nil
 }
 
-func (s *PerformanceService) GetInternHealth(ctx context.Context, req *pb.Empty) (*pb.InternHealthResponse, error) {
-	metrics := s.Repo.GetHealthMetrics()
-
-	resp := &pb.InternHealthResponse{
-		ActiveInterns:         int32(metrics.ActiveInterns),
-		CompletedInternships:  int32(metrics.CompletedInterns),
-		InactiveInterns:       int32(metrics.InactiveInterns),
-		TopColleges:           make(map[string]int32),
-		FastestGrowingDomains: make(map[string]int32),
-	}
-
-	for k, v := range metrics.TopColleges {
-		resp.TopColleges[k] = int32(v)
-	}
-
-	for k, v := range metrics.FastestDomains {
-		resp.FastestGrowingDomains[k] = int32(v)
-	}
-
-	return resp, nil
-}

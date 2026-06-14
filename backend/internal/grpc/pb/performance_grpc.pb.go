@@ -19,30 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PerformanceService_GetPerformanceMetrics_FullMethodName  = "/tarcin.performance.PerformanceService/GetPerformanceMetrics"
-	PerformanceService_GetInternHealth_FullMethodName        = "/tarcin.performance.PerformanceService/GetInternHealth"
-	PerformanceService_GetTaskAnalytics_FullMethodName       = "/tarcin.performance.PerformanceService/GetTaskAnalytics"
-	PerformanceService_GetMentorAnalytics_FullMethodName     = "/tarcin.performance.PerformanceService/GetMentorAnalytics"
-	PerformanceService_GetEngagementAnalytics_FullMethodName = "/tarcin.performance.PerformanceService/GetEngagementAnalytics"
-	PerformanceService_GetGrowthAnalytics_FullMethodName     = "/tarcin.performance.PerformanceService/GetGrowthAnalytics"
-	PerformanceService_GetCollegeAnalytics_FullMethodName    = "/tarcin.performance.PerformanceService/GetCollegeAnalytics"
-	PerformanceService_GetWorkflowAnalytics_FullMethodName   = "/tarcin.performance.PerformanceService/GetWorkflowAnalytics"
-	PerformanceService_GetConversionAnalytics_FullMethodName = "/tarcin.performance.PerformanceService/GetConversionAnalytics"
+	PerformanceService_ExecuteSQLQuery_FullMethodName = "/tarcin.performance.PerformanceService/ExecuteSQLQuery"
 )
 
 // PerformanceServiceClient is the client API for PerformanceService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PerformanceServiceClient interface {
-	GetPerformanceMetrics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*PerformanceMetricsResponse, error)
-	GetInternHealth(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*InternHealthResponse, error)
-	GetTaskAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*TaskAnalyticsResponse, error)
-	GetMentorAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MentorAnalyticsResponse, error)
-	GetEngagementAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*EngagementAnalyticsResponse, error)
-	GetGrowthAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GrowthAnalyticsResponse, error)
-	GetCollegeAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*CollegeAnalyticsResponse, error)
-	GetWorkflowAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*WorkflowAnalyticsResponse, error)
-	GetConversionAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ConversionAnalyticsResponse, error)
+	ExecuteSQLQuery(ctx context.Context, in *SQLQueryRequest, opts ...grpc.CallOption) (*SQLQueryResponse, error)
 }
 
 type performanceServiceClient struct {
@@ -53,90 +37,10 @@ func NewPerformanceServiceClient(cc grpc.ClientConnInterface) PerformanceService
 	return &performanceServiceClient{cc}
 }
 
-func (c *performanceServiceClient) GetPerformanceMetrics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*PerformanceMetricsResponse, error) {
+func (c *performanceServiceClient) ExecuteSQLQuery(ctx context.Context, in *SQLQueryRequest, opts ...grpc.CallOption) (*SQLQueryResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(PerformanceMetricsResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetPerformanceMetrics_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *performanceServiceClient) GetInternHealth(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*InternHealthResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(InternHealthResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetInternHealth_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *performanceServiceClient) GetTaskAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*TaskAnalyticsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(TaskAnalyticsResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetTaskAnalytics_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *performanceServiceClient) GetMentorAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*MentorAnalyticsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(MentorAnalyticsResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetMentorAnalytics_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *performanceServiceClient) GetEngagementAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*EngagementAnalyticsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EngagementAnalyticsResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetEngagementAnalytics_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *performanceServiceClient) GetGrowthAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GrowthAnalyticsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GrowthAnalyticsResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetGrowthAnalytics_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *performanceServiceClient) GetCollegeAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*CollegeAnalyticsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CollegeAnalyticsResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetCollegeAnalytics_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *performanceServiceClient) GetWorkflowAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*WorkflowAnalyticsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(WorkflowAnalyticsResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetWorkflowAnalytics_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *performanceServiceClient) GetConversionAnalytics(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ConversionAnalyticsResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(ConversionAnalyticsResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_GetConversionAnalytics_FullMethodName, in, out, cOpts...)
+	out := new(SQLQueryResponse)
+	err := c.cc.Invoke(ctx, PerformanceService_ExecuteSQLQuery_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,15 +51,7 @@ func (c *performanceServiceClient) GetConversionAnalytics(ctx context.Context, i
 // All implementations must embed UnimplementedPerformanceServiceServer
 // for forward compatibility.
 type PerformanceServiceServer interface {
-	GetPerformanceMetrics(context.Context, *Empty) (*PerformanceMetricsResponse, error)
-	GetInternHealth(context.Context, *Empty) (*InternHealthResponse, error)
-	GetTaskAnalytics(context.Context, *Empty) (*TaskAnalyticsResponse, error)
-	GetMentorAnalytics(context.Context, *Empty) (*MentorAnalyticsResponse, error)
-	GetEngagementAnalytics(context.Context, *Empty) (*EngagementAnalyticsResponse, error)
-	GetGrowthAnalytics(context.Context, *Empty) (*GrowthAnalyticsResponse, error)
-	GetCollegeAnalytics(context.Context, *Empty) (*CollegeAnalyticsResponse, error)
-	GetWorkflowAnalytics(context.Context, *Empty) (*WorkflowAnalyticsResponse, error)
-	GetConversionAnalytics(context.Context, *Empty) (*ConversionAnalyticsResponse, error)
+	ExecuteSQLQuery(context.Context, *SQLQueryRequest) (*SQLQueryResponse, error)
 	mustEmbedUnimplementedPerformanceServiceServer()
 }
 
@@ -166,32 +62,8 @@ type PerformanceServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPerformanceServiceServer struct{}
 
-func (UnimplementedPerformanceServiceServer) GetPerformanceMetrics(context.Context, *Empty) (*PerformanceMetricsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetPerformanceMetrics not implemented")
-}
-func (UnimplementedPerformanceServiceServer) GetInternHealth(context.Context, *Empty) (*InternHealthResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetInternHealth not implemented")
-}
-func (UnimplementedPerformanceServiceServer) GetTaskAnalytics(context.Context, *Empty) (*TaskAnalyticsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetTaskAnalytics not implemented")
-}
-func (UnimplementedPerformanceServiceServer) GetMentorAnalytics(context.Context, *Empty) (*MentorAnalyticsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetMentorAnalytics not implemented")
-}
-func (UnimplementedPerformanceServiceServer) GetEngagementAnalytics(context.Context, *Empty) (*EngagementAnalyticsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetEngagementAnalytics not implemented")
-}
-func (UnimplementedPerformanceServiceServer) GetGrowthAnalytics(context.Context, *Empty) (*GrowthAnalyticsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetGrowthAnalytics not implemented")
-}
-func (UnimplementedPerformanceServiceServer) GetCollegeAnalytics(context.Context, *Empty) (*CollegeAnalyticsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetCollegeAnalytics not implemented")
-}
-func (UnimplementedPerformanceServiceServer) GetWorkflowAnalytics(context.Context, *Empty) (*WorkflowAnalyticsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetWorkflowAnalytics not implemented")
-}
-func (UnimplementedPerformanceServiceServer) GetConversionAnalytics(context.Context, *Empty) (*ConversionAnalyticsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method GetConversionAnalytics not implemented")
+func (UnimplementedPerformanceServiceServer) ExecuteSQLQuery(context.Context, *SQLQueryRequest) (*SQLQueryResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ExecuteSQLQuery not implemented")
 }
 func (UnimplementedPerformanceServiceServer) mustEmbedUnimplementedPerformanceServiceServer() {}
 func (UnimplementedPerformanceServiceServer) testEmbeddedByValue()                            {}
@@ -214,164 +86,20 @@ func RegisterPerformanceServiceServer(s grpc.ServiceRegistrar, srv PerformanceSe
 	s.RegisterService(&PerformanceService_ServiceDesc, srv)
 }
 
-func _PerformanceService_GetPerformanceMetrics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+func _PerformanceService_ExecuteSQLQuery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SQLQueryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetPerformanceMetrics(ctx, in)
+		return srv.(PerformanceServiceServer).ExecuteSQLQuery(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: PerformanceService_GetPerformanceMetrics_FullMethodName,
+		FullMethod: PerformanceService_ExecuteSQLQuery_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetPerformanceMetrics(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformanceService_GetInternHealth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetInternHealth(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_GetInternHealth_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetInternHealth(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformanceService_GetTaskAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetTaskAnalytics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_GetTaskAnalytics_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetTaskAnalytics(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformanceService_GetMentorAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetMentorAnalytics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_GetMentorAnalytics_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetMentorAnalytics(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformanceService_GetEngagementAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetEngagementAnalytics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_GetEngagementAnalytics_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetEngagementAnalytics(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformanceService_GetGrowthAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetGrowthAnalytics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_GetGrowthAnalytics_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetGrowthAnalytics(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformanceService_GetCollegeAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetCollegeAnalytics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_GetCollegeAnalytics_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetCollegeAnalytics(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformanceService_GetWorkflowAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetWorkflowAnalytics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_GetWorkflowAnalytics_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetWorkflowAnalytics(ctx, req.(*Empty))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PerformanceService_GetConversionAnalytics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).GetConversionAnalytics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_GetConversionAnalytics_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).GetConversionAnalytics(ctx, req.(*Empty))
+		return srv.(PerformanceServiceServer).ExecuteSQLQuery(ctx, req.(*SQLQueryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -384,40 +112,8 @@ var PerformanceService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*PerformanceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetPerformanceMetrics",
-			Handler:    _PerformanceService_GetPerformanceMetrics_Handler,
-		},
-		{
-			MethodName: "GetInternHealth",
-			Handler:    _PerformanceService_GetInternHealth_Handler,
-		},
-		{
-			MethodName: "GetTaskAnalytics",
-			Handler:    _PerformanceService_GetTaskAnalytics_Handler,
-		},
-		{
-			MethodName: "GetMentorAnalytics",
-			Handler:    _PerformanceService_GetMentorAnalytics_Handler,
-		},
-		{
-			MethodName: "GetEngagementAnalytics",
-			Handler:    _PerformanceService_GetEngagementAnalytics_Handler,
-		},
-		{
-			MethodName: "GetGrowthAnalytics",
-			Handler:    _PerformanceService_GetGrowthAnalytics_Handler,
-		},
-		{
-			MethodName: "GetCollegeAnalytics",
-			Handler:    _PerformanceService_GetCollegeAnalytics_Handler,
-		},
-		{
-			MethodName: "GetWorkflowAnalytics",
-			Handler:    _PerformanceService_GetWorkflowAnalytics_Handler,
-		},
-		{
-			MethodName: "GetConversionAnalytics",
-			Handler:    _PerformanceService_GetConversionAnalytics_Handler,
+			MethodName: "ExecuteSQLQuery",
+			Handler:    _PerformanceService_ExecuteSQLQuery_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

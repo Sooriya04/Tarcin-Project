@@ -41,120 +41,26 @@ func main() {
 }
 
 func registerTools(s *server.MCPServer, client pb.PerformanceServiceClient) {
-	// 1. Task Analytics
-	toolTask := mcp.NewTool("get_task_analytics",
-		mcp.WithDescription("Task completions, blockers, timelines."),
+	// 1. Execute SQL Query
+	toolSQL := mcp.NewTool("execute_sql_query",
+		mcp.WithDescription("Run a read-only SQL query against the Postgres database to retrieve custom metrics, counts, averages, and profiles."),
+		mcp.WithString("query", mcp.Description("The SELECT SQL query to execute. Must be read-only."), mcp.Required()),
 	)
-	s.AddTool(toolTask, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetTaskAnalytics(ctx, &pb.Empty{})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
+	s.AddTool(toolSQL, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var args struct {
+			Query string `json:"query"`
 		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
-	})
+		argBytes, _ := json.Marshal(request.Params.Arguments)
+		json.Unmarshal(argBytes, &args)
 
-	// 2. Mentor Analytics
-	toolMentor := mcp.NewTool("get_mentor_analytics",
-		mcp.WithDescription("Mentor workload, effectiveness, feedback quality."),
-	)
-	s.AddTool(toolMentor, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetMentorAnalytics(ctx, &pb.Empty{})
+		resp, err := client.ExecuteSQLQuery(ctx, &pb.SQLQueryRequest{Query: args.Query})
 		if err != nil {
 			return mcp.NewToolResultError(err.Error()), nil
 		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
-	})
-
-	// 3. Engagement Analytics
-	toolEng := mcp.NewTool("get_engagement_analytics",
-		mcp.WithDescription("Attendance, daily reports, drop-out risk."),
-	)
-	s.AddTool(toolEng, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetEngagementAnalytics(ctx, &pb.Empty{})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
+		if resp.Error != "" {
+			return mcp.NewToolResultError(resp.Error), nil
 		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
-	})
-
-	// 4. Growth Analytics
-	toolGrowth := mcp.NewTool("get_growth_analytics",
-		mcp.WithDescription("Gamification, XP, leveling progress."),
-	)
-	s.AddTool(toolGrowth, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetGrowthAnalytics(ctx, &pb.Empty{})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
-		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
-	})
-
-	// 5. College Analytics
-	toolCol := mcp.NewTool("get_college_analytics",
-		mcp.WithDescription("College completion rates, institutional stats."),
-	)
-	s.AddTool(toolCol, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetCollegeAnalytics(ctx, &pb.Empty{})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
-		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
-	})
-
-	// 6. Workflow Analytics
-	toolWf := mcp.NewTool("get_workflow_analytics",
-		mcp.WithDescription("Escalations, negative trends, root causes."),
-	)
-	s.AddTool(toolWf, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetWorkflowAnalytics(ctx, &pb.Empty{})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
-		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
-	})
-
-	// 7. Conversion Analytics
-	toolConv := mcp.NewTool("get_conversion_analytics",
-		mcp.WithDescription("Hire-ready interns, conversion rates."),
-	)
-	s.AddTool(toolConv, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetConversionAnalytics(ctx, &pb.Empty{})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
-		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
-	})
-
-	// 8. Intern Health
-	toolHealth := mcp.NewTool("get_intern_health",
-		mcp.WithDescription("Active, completed, inactive headcount."),
-	)
-	s.AddTool(toolHealth, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetInternHealth(ctx, &pb.Empty{})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
-		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
-	})
-
-	// 9. Performance Metrics
-	toolPerf := mcp.NewTool("get_performance_metrics",
-		mcp.WithDescription("Top/lowest performers, evaluation scores."),
-	)
-	s.AddTool(toolPerf, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		resp, err := client.GetPerformanceMetrics(ctx, &pb.Empty{})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
-		}
-		data, _ := json.MarshalIndent(resp, "", "  ")
-		return mcp.NewToolResultText(string(data)), nil
+		return mcp.NewToolResultText(resp.JsonResult), nil
 	})
 }
+
