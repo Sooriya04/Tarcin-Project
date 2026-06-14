@@ -1,2 +1,100 @@
 2026/06/12 03:02:10 Successfully connected to the database
 2026/06/12 03:02:10 gRPC Server listening on :50051
+2026/06/14 12:04:16 Successfully connected to the database
+2026/06/14 12:04:16 gRPC Server listening on :50051
+2026/06/14 12:04:23 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:04:23 [GetUserInformation] Fetching information for: user-intern-1
+2026/06/14 12:04:23 [GetUserInformation] Success: gathered all information for user user-intern-1
+2026/06/14 12:04:23 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.233426ms
+2026/06/14 12:05:13 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:05:13 [GetUserInformation] Fetching information for: user-intern-2
+2026/06/14 12:05:13 [GetUserInformation] Success: gathered all information for user user-intern-2
+2026/06/14 12:05:13 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.892336ms
+2026/06/14 12:05:36 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:05:36 [GetUserInformation] Fetching information for: user-intern-3
+2026/06/14 12:05:36 [GetUserInformation] Success: gathered all information for user user-intern-3
+2026/06/14 12:05:36 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.032979ms
+2026/06/14 12:06:00 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:06:00 [GetUserInformation] Fetching information for: user-intern-4
+2026/06/14 12:06:00 [GetUserInformation] Success: gathered all information for user user-intern-4
+2026/06/14 12:06:00 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 6.088194ms
+2026/06/14 12:06:38 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:06:38 [GetUserInformation] Fetching information for: user-intern-1
+2026/06/14 12:06:38 [GetUserInformation] Success: gathered all information for user user-intern-1
+2026/06/14 12:06:38 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 12.271366ms
+2026/06/14 12:06:47 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:06:47 [GetUserInformation] Fetching information for: user-intern-2
+2026/06/14 12:06:47 [GetUserInformation] Success: gathered all information for user user-intern-2
+2026/06/14 12:06:47 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 11.819808ms
+2026/06/14 12:06:54 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:06:54 [GetUserInformation] Fetching information for: user-intern-3
+2026/06/14 12:06:55 [GetUserInformation] Success: gathered all information for user user-intern-3
+2026/06/14 12:06:55 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.303519ms
+2026/06/14 12:07:05 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:07:05 [GetUserInformation] Fetching information for: user-intern-4
+2026/06/14 12:07:05 [GetUserInformation] Success: gathered all information for user user-intern-4
+2026/06/14 12:07:05 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 7.845328ms
+2026/06/14 12:07:14 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:07:14 [GetUserInformation] Fetching information for: user-intern-5
+2026/06/14 12:07:14 [GetUserInformation] Success: gathered all information for user user-intern-5
+2026/06/14 12:07:14 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 12.053996ms
+2026/06/14 12:07:26 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:07:26 [GetUserInformation] Fetching information for: user-intern-6
+2026/06/14 12:07:26 [GetUserInformation] Success: gathered all information for user user-intern-6
+2026/06/14 12:07:26 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 10.704474ms
+2026/06/14 12:07:35 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:07:35 [GetUserInformation] Fetching information for: user-intern-7
+2026/06/14 12:07:35 [GetUserInformation] Success: gathered all information for user user-intern-7
+2026/06/14 12:07:35 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 11.73986ms
+2026/06/14 12:07:45 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:07:45 [GetUserInformation] Fetching information for: user-intern-8
+2026/06/14 12:07:45 [GetUserInformation] Success: gathered all information for user user-intern-8
+2026/06/14 12:07:45 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 10.066637ms
+2026/06/14 12:10:24 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:10:24 [GetUserInformation] Fetching information for: user-intern-1
+2026/06/14 12:10:24 [GetUserInformation] Success: gathered all information for user user-intern-1
+2026/06/14 12:10:24 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 6.020645ms
+2026/06/14 12:10:35 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:10:35 [GetUserInformation] Fetching information for: user-intern-2
+2026/06/14 12:10:35 [GetUserInformation] Success: gathered all information for user user-intern-2
+2026/06/14 12:10:35 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 5.846699ms
+2026/06/14 12:10:44 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:10:44 [GetUserInformation] Fetching information for: user-intern-3
+2026/06/14 12:10:44 [GetUserInformation] Success: gathered all information for user user-intern-3
+2026/06/14 12:10:44 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 8.332296ms
+2026/06/14 12:10:54 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:10:54 [GetUserInformation] Fetching information for: user-intern-4
+2026/06/14 12:10:54 [GetUserInformation] Success: gathered all information for user user-intern-4
+2026/06/14 12:10:54 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 6.177734ms
+2026/06/14 12:11:04 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:11:04 [GetUserInformation] Fetching information for: user-intern-5
+2026/06/14 12:11:04 [GetUserInformation] Success: gathered all information for user user-intern-5
+2026/06/14 12:11:04 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.997946ms
+2026/06/14 12:11:12 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:11:12 [GetUserInformation] Fetching information for: user-intern-6
+2026/06/14 12:11:12 [GetUserInformation] Success: gathered all information for user user-intern-6
+2026/06/14 12:11:12 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 10.449258ms
+2026/06/14 12:11:22 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:11:22 [GetUserInformation] Fetching information for: user-intern-7
+2026/06/14 12:11:22 [GetUserInformation] Success: gathered all information for user user-intern-7
+2026/06/14 12:11:22 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 8.565973ms
+2026/06/14 12:11:31 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:11:31 [GetUserInformation] Fetching information for: user-intern-8
+2026/06/14 12:11:31 [GetUserInformation] Success: gathered all information for user user-intern-8
+2026/06/14 12:11:31 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 8.840279ms
+2026/06/14 12:13:48 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:13:48 [GetUserInformation] Fetching information for: user-intern-1
+2026/06/14 12:13:48 [GetUserInformation] Success: gathered all information for user user-intern-1
+2026/06/14 12:13:48 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.376225ms
+2026/06/14 12:14:45 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:14:45 [GetUserInformation] Fetching information for: user-intern-1
+2026/06/14 12:14:45 [GetUserInformation] Success: gathered all information for user user-intern-1
+2026/06/14 12:14:45 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.384314ms
+2026/06/14 12:15:07 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:15:07 [GetUserInformation] Fetching information for: user-intern-2
+2026/06/14 12:15:07 [GetUserInformation] Success: gathered all information for user user-intern-2
+2026/06/14 12:15:07 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.394607ms
+2026/06/14 12:15:35 [gRPC] --> /tarcin.performance.PerformanceService/GetUserInformation
+2026/06/14 12:15:35 [GetUserInformation] Fetching information for: user-intern-3
+2026/06/14 12:15:35 [GetUserInformation] Success: gathered all information for user user-intern-3
+2026/06/14 12:15:35 [gRPC] <-- /tarcin.performance.PerformanceService/GetUserInformation | SUCCESS | Duration: 9.546596ms

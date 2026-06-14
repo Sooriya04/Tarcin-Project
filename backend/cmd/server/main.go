@@ -7,8 +7,10 @@ import (
 	"backend/internal/grpc/pb"
 	"backend/internal/repository"
 	"context"
+	"io"
 	"log"
 	"net"
+	"os"
 	"time"
 
 	"google.golang.org/grpc"
@@ -33,6 +35,14 @@ func loggingInterceptor(ctx context.Context, req interface{}, info *grpc.UnarySe
 }
 
 func main() {
+	// Setup MultiWriter to write logs to stdout and server.log
+	logFile, err := os.OpenFile("server.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("failed to open server.log: %v", err)
+	}
+	defer logFile.Close()
+	log.SetOutput(io.MultiWriter(os.Stdout, logFile))
+
 	// 1. Load configuration (Environment variables)
 	cfg := config.LoadConfig()
 
