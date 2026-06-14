@@ -41,29 +41,7 @@ func main() {
 }
 
 func registerTools(s *server.MCPServer, client pb.PerformanceServiceClient) {
-	// 1. Execute SQL Query
-	toolSQL := mcp.NewTool("execute_sql_query",
-		mcp.WithDescription("Run a read-only SQL query against the Postgres database to retrieve custom metrics, counts, averages, and profiles."),
-		mcp.WithString("query", mcp.Description("The SELECT SQL query to execute. Must be read-only."), mcp.Required()),
-	)
-	s.AddTool(toolSQL, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
-		var args struct {
-			Query string `json:"query"`
-		}
-		argBytes, _ := json.Marshal(request.Params.Arguments)
-		json.Unmarshal(argBytes, &args)
-
-		resp, err := client.ExecuteSQLQuery(ctx, &pb.SQLQueryRequest{Query: args.Query})
-		if err != nil {
-			return mcp.NewToolResultError(err.Error()), nil
-		}
-		if resp.Error != "" {
-			return mcp.NewToolResultError(resp.Error), nil
-		}
-		return mcp.NewToolResultText(resp.JsonResult), nil
-	})
-
-	// 2. Get User Information
+	// 1. Get User Information
 	toolUser := mcp.NewTool("get_user_information",
 		mcp.WithDescription("Retrieve all system records and database entries associated with a user, by user ID or email."),
 		mcp.WithString("email_or_id", mcp.Description("The user's ID or email address."), mcp.Required()),

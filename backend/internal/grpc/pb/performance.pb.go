@@ -57,102 +57,6 @@ func (*Empty) Descriptor() ([]byte, []int) {
 	return file_proto_performance_proto_rawDescGZIP(), []int{0}
 }
 
-type SQLQueryRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Query         string                 `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *SQLQueryRequest) Reset() {
-	*x = SQLQueryRequest{}
-	mi := &file_proto_performance_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *SQLQueryRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SQLQueryRequest) ProtoMessage() {}
-
-func (x *SQLQueryRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_performance_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SQLQueryRequest.ProtoReflect.Descriptor instead.
-func (*SQLQueryRequest) Descriptor() ([]byte, []int) {
-	return file_proto_performance_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *SQLQueryRequest) GetQuery() string {
-	if x != nil {
-		return x.Query
-	}
-	return ""
-}
-
-type SQLQueryResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	JsonResult    string                 `protobuf:"bytes,1,opt,name=json_result,json=jsonResult,proto3" json:"json_result,omitempty"`
-	Error         string                 `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *SQLQueryResponse) Reset() {
-	*x = SQLQueryResponse{}
-	mi := &file_proto_performance_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *SQLQueryResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SQLQueryResponse) ProtoMessage() {}
-
-func (x *SQLQueryResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_performance_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SQLQueryResponse.ProtoReflect.Descriptor instead.
-func (*SQLQueryResponse) Descriptor() ([]byte, []int) {
-	return file_proto_performance_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *SQLQueryResponse) GetJsonResult() string {
-	if x != nil {
-		return x.JsonResult
-	}
-	return ""
-}
-
-func (x *SQLQueryResponse) GetError() string {
-	if x != nil {
-		return x.Error
-	}
-	return ""
-}
-
 type UserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	EmailOrId     string                 `protobuf:"bytes,1,opt,name=email_or_id,json=emailOrId,proto3" json:"email_or_id,omitempty"`
@@ -162,7 +66,7 @@ type UserRequest struct {
 
 func (x *UserRequest) Reset() {
 	*x = UserRequest{}
-	mi := &file_proto_performance_proto_msgTypes[3]
+	mi := &file_proto_performance_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -174,7 +78,7 @@ func (x *UserRequest) String() string {
 func (*UserRequest) ProtoMessage() {}
 
 func (x *UserRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_performance_proto_msgTypes[3]
+	mi := &file_proto_performance_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -187,7 +91,7 @@ func (x *UserRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserRequest.ProtoReflect.Descriptor instead.
 func (*UserRequest) Descriptor() ([]byte, []int) {
-	return file_proto_performance_proto_rawDescGZIP(), []int{3}
+	return file_proto_performance_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *UserRequest) GetEmailOrId() string {
@@ -207,7 +111,7 @@ type UserResponse struct {
 
 func (x *UserResponse) Reset() {
 	*x = UserResponse{}
-	mi := &file_proto_performance_proto_msgTypes[4]
+	mi := &file_proto_performance_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -219,7 +123,7 @@ func (x *UserResponse) String() string {
 func (*UserResponse) ProtoMessage() {}
 
 func (x *UserResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_performance_proto_msgTypes[4]
+	mi := &file_proto_performance_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -232,7 +136,7 @@ func (x *UserResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserResponse.ProtoReflect.Descriptor instead.
 func (*UserResponse) Descriptor() ([]byte, []int) {
-	return file_proto_performance_proto_rawDescGZIP(), []int{4}
+	return file_proto_performance_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *UserResponse) GetJsonResult() string {
@@ -254,21 +158,14 @@ var File_proto_performance_proto protoreflect.FileDescriptor
 const file_proto_performance_proto_rawDesc = "" +
 	"\n" +
 	"\x17proto/performance.proto\x12\x12tarcin.performance\"\a\n" +
-	"\x05Empty\"'\n" +
-	"\x0fSQLQueryRequest\x12\x14\n" +
-	"\x05query\x18\x01 \x01(\tR\x05query\"I\n" +
-	"\x10SQLQueryResponse\x12\x1f\n" +
-	"\vjson_result\x18\x01 \x01(\tR\n" +
-	"jsonResult\x12\x14\n" +
-	"\x05error\x18\x02 \x01(\tR\x05error\"-\n" +
+	"\x05Empty\"-\n" +
 	"\vUserRequest\x12\x1e\n" +
 	"\vemail_or_id\x18\x01 \x01(\tR\temailOrId\"E\n" +
 	"\fUserResponse\x12\x1f\n" +
 	"\vjson_result\x18\x01 \x01(\tR\n" +
 	"jsonResult\x12\x14\n" +
-	"\x05error\x18\x02 \x01(\tR\x05error2\xcb\x01\n" +
-	"\x12PerformanceService\x12\\\n" +
-	"\x0fExecuteSQLQuery\x12#.tarcin.performance.SQLQueryRequest\x1a$.tarcin.performance.SQLQueryResponse\x12W\n" +
+	"\x05error\x18\x02 \x01(\tR\x05error2m\n" +
+	"\x12PerformanceService\x12W\n" +
 	"\x12GetUserInformation\x12\x1f.tarcin.performance.UserRequest\x1a .tarcin.performance.UserResponseB\x1aZ\x18backend/internal/grpc/pbb\x06proto3"
 
 var (
@@ -283,21 +180,17 @@ func file_proto_performance_proto_rawDescGZIP() []byte {
 	return file_proto_performance_proto_rawDescData
 }
 
-var file_proto_performance_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_proto_performance_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_proto_performance_proto_goTypes = []any{
-	(*Empty)(nil),            // 0: tarcin.performance.Empty
-	(*SQLQueryRequest)(nil),  // 1: tarcin.performance.SQLQueryRequest
-	(*SQLQueryResponse)(nil), // 2: tarcin.performance.SQLQueryResponse
-	(*UserRequest)(nil),      // 3: tarcin.performance.UserRequest
-	(*UserResponse)(nil),     // 4: tarcin.performance.UserResponse
+	(*Empty)(nil),        // 0: tarcin.performance.Empty
+	(*UserRequest)(nil),  // 1: tarcin.performance.UserRequest
+	(*UserResponse)(nil), // 2: tarcin.performance.UserResponse
 }
 var file_proto_performance_proto_depIdxs = []int32{
-	1, // 0: tarcin.performance.PerformanceService.ExecuteSQLQuery:input_type -> tarcin.performance.SQLQueryRequest
-	3, // 1: tarcin.performance.PerformanceService.GetUserInformation:input_type -> tarcin.performance.UserRequest
-	2, // 2: tarcin.performance.PerformanceService.ExecuteSQLQuery:output_type -> tarcin.performance.SQLQueryResponse
-	4, // 3: tarcin.performance.PerformanceService.GetUserInformation:output_type -> tarcin.performance.UserResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	1, // 0: tarcin.performance.PerformanceService.GetUserInformation:input_type -> tarcin.performance.UserRequest
+	2, // 1: tarcin.performance.PerformanceService.GetUserInformation:output_type -> tarcin.performance.UserResponse
+	1, // [1:2] is the sub-list for method output_type
+	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -314,7 +207,7 @@ func file_proto_performance_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_proto_performance_proto_rawDesc), len(file_proto_performance_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

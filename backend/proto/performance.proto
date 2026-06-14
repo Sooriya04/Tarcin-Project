@@ -6,15 +6,6 @@ option go_package = "backend/internal/grpc/pb";
 
 message Empty {}
 
-message SQLQueryRequest {
-  string query = 1;
-}
-
-message SQLQueryResponse {
-  string json_result = 1;
-  string error = 2;
-}
-
 message UserRequest {
   string email_or_id = 1;
 }
@@ -25,7 +16,6 @@ message UserResponse {
 }
 
 service PerformanceService {
-  rpc ExecuteSQLQuery(SQLQueryRequest) returns (SQLQueryResponse);
   rpc GetUserInformation(UserRequest) returns (UserResponse);
 }
 

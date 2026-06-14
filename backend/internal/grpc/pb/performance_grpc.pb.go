@@ -19,7 +19,6 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	PerformanceService_ExecuteSQLQuery_FullMethodName    = "/tarcin.performance.PerformanceService/ExecuteSQLQuery"
 	PerformanceService_GetUserInformation_FullMethodName = "/tarcin.performance.PerformanceService/GetUserInformation"
 )
 
@@ -27,7 +26,6 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PerformanceServiceClient interface {
-	ExecuteSQLQuery(ctx context.Context, in *SQLQueryRequest, opts ...grpc.CallOption) (*SQLQueryResponse, error)
 	GetUserInformation(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (*UserResponse, error)
 }
 
@@ -37,16 +35,6 @@ type performanceServiceClient struct {
 
 func NewPerformanceServiceClient(cc grpc.ClientConnInterface) PerformanceServiceClient {
 	return &performanceServiceClient{cc}
-}
-
-func (c *performanceServiceClient) ExecuteSQLQuery(ctx context.Context, in *SQLQueryRequest, opts ...grpc.CallOption) (*SQLQueryResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SQLQueryResponse)
-	err := c.cc.Invoke(ctx, PerformanceService_ExecuteSQLQuery_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *performanceServiceClient) GetUserInformation(ctx context.Context, in *UserRequest, opts ...grpc.CallOption) (*UserResponse, error) {
@@ -63,7 +51,6 @@ func (c *performanceServiceClient) GetUserInformation(ctx context.Context, in *U
 // All implementations must embed UnimplementedPerformanceServiceServer
 // for forward compatibility.
 type PerformanceServiceServer interface {
-	ExecuteSQLQuery(context.Context, *SQLQueryRequest) (*SQLQueryResponse, error)
 	GetUserInformation(context.Context, *UserRequest) (*UserResponse, error)
 	mustEmbedUnimplementedPerformanceServiceServer()
 }
@@ -75,9 +62,6 @@ type PerformanceServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPerformanceServiceServer struct{}
 
-func (UnimplementedPerformanceServiceServer) ExecuteSQLQuery(context.Context, *SQLQueryRequest) (*SQLQueryResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method ExecuteSQLQuery not implemented")
-}
 func (UnimplementedPerformanceServiceServer) GetUserInformation(context.Context, *UserRequest) (*UserResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetUserInformation not implemented")
 }
@@ -100,24 +84,6 @@ func RegisterPerformanceServiceServer(s grpc.ServiceRegistrar, srv PerformanceSe
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&PerformanceService_ServiceDesc, srv)
-}
-
-func _PerformanceService_ExecuteSQLQuery_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SQLQueryRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PerformanceServiceServer).ExecuteSQLQuery(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PerformanceService_ExecuteSQLQuery_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PerformanceServiceServer).ExecuteSQLQuery(ctx, req.(*SQLQueryRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _PerformanceService_GetUserInformation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -145,10 +111,6 @@ var PerformanceService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "tarcin.performance.PerformanceService",
 	HandlerType: (*PerformanceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "ExecuteSQLQuery",
-			Handler:    _PerformanceService_ExecuteSQLQuery_Handler,
-		},
 		{
 			MethodName: "GetUserInformation",
 			Handler:    _PerformanceService_GetUserInformation_Handler,
