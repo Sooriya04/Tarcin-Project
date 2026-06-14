@@ -62,5 +62,27 @@ func registerTools(s *server.MCPServer, client pb.PerformanceServiceClient) {
 		}
 		return mcp.NewToolResultText(resp.JsonResult), nil
 	})
+
+	// 2. Get User Information
+	toolUser := mcp.NewTool("get_user_information",
+		mcp.WithDescription("Retrieve all system records and database entries associated with a user, by user ID or email."),
+		mcp.WithString("email_or_id", mcp.Description("The user's ID or email address."), mcp.Required()),
+	)
+	s.AddTool(toolUser, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		var args struct {
+			EmailOrId string `json:"email_or_id"`
+		}
+		argBytes, _ := json.Marshal(request.Params.Arguments)
+		json.Unmarshal(argBytes, &args)
+
+		resp, err := client.GetUserInformation(ctx, &pb.UserRequest{EmailOrId: args.EmailOrId})
+		if err != nil {
+			return mcp.NewToolResultError(err.Error()), nil
+		}
+		if resp.Error != "" {
+			return mcp.NewToolResultError(resp.Error), nil
+		}
+		return mcp.NewToolResultText(resp.JsonResult), nil
+	})
 }
 

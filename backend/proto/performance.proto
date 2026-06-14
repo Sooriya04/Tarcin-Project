@@ -15,8 +15,18 @@ message SQLQueryResponse {
   string error = 2;
 }
 
+message UserRequest {
+  string email_or_id = 1;
+}
+
+message UserResponse {
+  string json_result = 1;
+  string error = 2;
+}
+
 service PerformanceService {
   rpc ExecuteSQLQuery(SQLQueryRequest) returns (SQLQueryResponse);
+  rpc GetUserInformation(UserRequest) returns (UserResponse);
 }
 
 
